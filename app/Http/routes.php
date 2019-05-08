@@ -11,6 +11,12 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('tasks.index');//в ларавель это tasks
+});
+
+Route::post('/task',function(Request $request){
+    
 });
