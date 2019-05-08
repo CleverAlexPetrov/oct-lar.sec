@@ -65,6 +65,12 @@
                             <button type="submit" class="btn btn-default bg-danger">
                                 <i class="fa fa-trash"></i> Удалить
                             </button>
+
+                        </form>
+                        <form action="{{ url('tasks/edit') }}" method="GET" class="form-horizontal">
+                            <button type="submit" class="btn btn-default bg-danger">
+                                <i class="fa fa-edit"></i> Редактировать
+                            </button>
                         </form>
                     </td>
                 </tr>
