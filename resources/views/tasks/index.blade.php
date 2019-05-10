@@ -26,8 +26,8 @@
         <!-- Кнопка добавления задачи -->
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-6">
-                <button type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i> Добавить задачу
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-primary"></i> Добавить задачу
                 </button>
             </div>
         </div>
@@ -63,13 +63,15 @@
                             {{csrf_field()}}
                             {{method_field('delete')}}
                             <button type="submit" class="btn btn-default bg-danger">
-                                <i class="fa fa-trash"></i> Удалить
+                                <i class="fa fa-trash"></i>
                             </button>
-
-                        </form>
-                        <form action="{{ url('tasks/edit') }}" method="GET" class="form-horizontal">
-                            <button type="submit" class="btn btn-default bg-danger">
-                                <i class="fa fa-edit"></i> Редактировать
+                        </form>                        
+                    </td>
+                    <td>
+                        <form action="{{ url('tasks/'.$task->id.'/edit') }}" method="get" class="form-horizontal">
+                            {{csrf_field()}}
+                            <button type="submit" class="btn btn-default bg-success">
+                                <i class="fa fa-edit"></i>
                             </button>
                         </form>
                     </td>

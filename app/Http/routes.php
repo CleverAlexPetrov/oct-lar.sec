@@ -16,11 +16,11 @@ use App\Task;
 
 Route::get('/', function () {
     $tasks = Task::all();
-    
-    return view('tasks.index',[
-        'tasks'=>$tasks,
-        //значение переменной tasks спроэцируется в переменнную tasks внутри папки view
-        ]); //в ларавель это tasks
+
+    return view('tasks.index', [
+        'tasks' => $tasks,
+            //значение переменной tasks спроэцируется в переменнную tasks внутри папки view
+    ]); //в ларавель это tasks
 });
 
 Route::post('/tasks', function(Request $request) {
@@ -39,7 +39,15 @@ Route::post('/tasks', function(Request $request) {
     return redirect('/');
 });
 
-Route::delete('/tasks/{task}',function(Task $task){
+Route::delete('/tasks/{task}', function(Task $task) {
     $task->delete();
     return redirect('/');
+});
+
+Route::get('/tasks/{id}/edit', function () {
+  return view('tasks.edit');
+});
+
+Route::put('/tasks/{task}', function(Task $task){
+    
 });
