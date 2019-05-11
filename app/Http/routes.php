@@ -36,7 +36,7 @@ Route::put('/tasks/{task}',function(Request $request, Task $task){
 		'name' => 'required|max:255',
     ]);
     if ($validator->fails()) {
-	return redirect('/')
+	return redirect('/tasks/'.$task->id.'/edit')
 			->withInput()
 			->withErrors($validator);
     }
