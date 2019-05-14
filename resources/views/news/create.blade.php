@@ -2,9 +2,8 @@
 @section('content')
 <div class="panel-body">
     @include('common.errors')
-    <form action="{{ url('/news/edit') }}" method="post" class="form-horizontal">
+    <form action="{{ url('/news/create') }}" method="post" class="form-horizontal">
         {{ csrf_field() }}
-        {{method_field('put')}}
         <div class="form-group">
             <label for="task" class="col-sm-3 control-label">Новость</label>
             <div class="col-sm-6">

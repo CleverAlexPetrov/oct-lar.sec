@@ -4,13 +4,51 @@ use Illuminate\Http\Request;
 use App\Task;
 use App\News;
 
-Route::get('/',function(){
+Route::get('/', function() {
     return view('index');
 })->name('home');
 
-Route::get('/',function(){
-    return view('news.main');
-})->name('main');
+Route::get('/news', function() {
+    $news = News::all();
+    return view('news.index', [
+        'news' => $news,
+    ]);
+});
+
+Route::get('/{news}/create', function () {
+    return view('news.create');
+});
+
+
+Route::post('/news', function(Request $request) {
+    $validator = Validator::make($request->all(), [
+                'name' => 'required|max:255',
+    ]);
+    if ($validator->fails()) {
+        return redirect('news.index')
+                        ->withInput()
+                        ->withErrors($validator);
+    }
+    $news = new App\News;
+    $news->name = $request->name;
+    $news->save();
+    return redirect('news.index');
+});
+
+
+
+Route::get('/{news}/show', function () {
+    return view('news.show');
+});
+
+Route::delete('/news/{news}', function(News $news) {
+    $news->delete();
+    return redirect('/news');
+});
+
+Route::get('/{news}/edit', function () {
+    return view('news.edit');
+});
 
 Route::group(['prefix' => 'tasks'], function() {
     Route::get('/', function () {
@@ -20,7 +58,7 @@ Route::group(['prefix' => 'tasks'], function() {
                 //значение переменной tasks спроэцируется в переменнную tasks внутри папки view
         ]); //в ларавель это tasks
     })->name('tasks_index');
-    
+
     Route::post('/', function(Request $request) {
         $validator = Validator::make($request->all(), [
                     'name' => 'required|max:255',
