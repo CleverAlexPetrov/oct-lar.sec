@@ -35,13 +35,12 @@
                 @foreach ($news as $news)
                 <tr>
                     <td class="table-text">                   
-                        <form action="{{ url('news/{news}') }}" method="post" class="form-horizontal">
+                        <form action="{{ url('') }}" method="post" class="form-horizontal">
                             {{csrf_field()}}
                             {{method_field('get')}}
                             <div>
-                                <a href="news/show">
+                                <a href="{{url('news/show'.$news->id)}}">
                                     {{ $news->name }}
-                                    <input type="hidden" name="name" id="news-name" class="form-control">
                                 </a>
                             </div>
                         </form>
