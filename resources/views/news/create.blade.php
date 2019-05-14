@@ -7,8 +7,8 @@
         <div class="form-group">
             <label for="task" class="col-sm-3 control-label">Новость</label>
             <div class="col-sm-6">
-                <input type="text" name="name" id="news-name" value="corroziya" class="form-control">
-                <textarea type="text" name="name" id="news-name" value="corropppziya" class="form-control"></textarea>
+                <input type="text" name="name" id="news-name" class="form-control">
+                <textarea type="text" name="text" id="news-text" class="form-control"></textarea>
             </div>
         </div>
         <div class="form-group">

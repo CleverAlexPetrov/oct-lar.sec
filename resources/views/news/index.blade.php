@@ -5,9 +5,8 @@
     <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
     <!-- Форма новой задачи -->
-    <form action="{{ url('news/create') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('news/create') }}" method="get" class="form-horizontal">
         {{ csrf_field() }}
-        {{method_field('get')}}
         <!-- Кнопка добавления задачи -->
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-6">
@@ -36,11 +35,14 @@
                 @foreach ($news as $news)
                 <tr>
                     <td class="table-text">                   
-                        <form action="{{ url('') }}" method="post" class="form-horizontal">
+                        <form action="{{ url('news/{news}') }}" method="post" class="form-horizontal">
                             {{csrf_field()}}
                             {{method_field('get')}}
                             <div>
-                                <a href="news/show">{{ $news->name }}</a>
+                                <a href="news/show">
+                                    {{ $news->name }}
+                                    <input type="hidden" name="name" id="news-name" class="form-control">
+                                </a>
                             </div>
                         </form>
                     </td>
@@ -54,7 +56,7 @@
                         </form>
                     </td>
                     <td>
-                        <form action="{{ url('news/edit') }}" method="post" class="form-horizontal">
+                        <form action="{{ url('/news/'.$news->id.'/edit') }}" method="post" class="form-horizontal">
                             {{csrf_field()}}
                             {{method_field('get')}}
                             <button type="submit" class="btn btn-default bg-success">

@@ -8,6 +8,10 @@ Route::get('/', function() {
     return view('index');
 })->name('home');
 
+//Route::get('/', function() {
+//    return view('news.index');
+//})->name('home');
+
 Route::get('/news', function() {
     $news = News::all();
     return view('news.index', [
@@ -19,35 +23,58 @@ Route::get('/{news}/create', function () {
     return view('news.create');
 });
 
-
-Route::post('/news', function(Request $request) {
+Route::post('/news/create', function(Request $request) {
     $validator = Validator::make($request->all(), [
                 'name' => 'required|max:255',
+                'text' => 'required',
     ]);
     if ($validator->fails()) {
-        return redirect('news.index')
+        return redirect('news/create')
                         ->withInput()
                         ->withErrors($validator);
     }
     $news = new App\News;
     $news->name = $request->name;
+    $news->text = $request->text;
     $news->save();
-    return redirect('news.index');
+    return redirect('/news');
 });
 
 
 
-Route::get('/{news}/show', function () {
-    return view('news.show');
+Route::get('news/{news}/show', function (News $news) {
+    return view('news.show', [
+        'news' => $news,
+    ]);
 });
+
+
 
 Route::delete('/news/{news}', function(News $news) {
     $news->delete();
     return redirect('/news');
 });
 
-Route::get('/{news}/edit', function () {
-    return view('news.edit');
+Route::get('/news/{news}/edit', function (News $news) {
+    return view('news.edit', [
+        'news' => $news,
+    ]);
+});
+
+Route::put('/news/{news}', function(Request $request, News $news) {
+    $validator = Validator::make($request->all(), [
+                'name' => 'required|max:255',
+                'text' => 'required',
+    ]);
+    if ($validator->fails()) {
+        return redirect('/news/' . $news->id . '/edit')
+                        ->withInput()
+                        ->withErrors($validator);
+    }
+    $news->name = $request->name;
+    $news->text = $request->text;
+    $news->save();
+    return redirect('/news');
 });
 
 Route::group(['prefix' => 'tasks'], function() {
